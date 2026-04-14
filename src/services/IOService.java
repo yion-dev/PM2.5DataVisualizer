@@ -1,4 +1,4 @@
 package services;
 
-public class DataIOService {
+public class IOService {
 }
