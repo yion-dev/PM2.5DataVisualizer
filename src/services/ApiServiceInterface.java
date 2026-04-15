@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public interface ApiServiceInterface {
 
-    void getApiData() throws IOException, InterruptedException;
+    String getApiData() throws IOException, InterruptedException;
 
     String extractCityName(String json);
     double[] extractCityGeo(String json);
