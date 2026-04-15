@@ -4,8 +4,9 @@ import services.ApiService;
 
 import java.util.List;
 
-public class BarChartDisplay {
+public class BarChartDisplay extends ChartDisplay {
 
+    @Override
     public void displayChart(List<ApiService.Pm25Data> data) {
 
         System.out.println("\033[0m  \033[32mGood\033[0m: ≤100   \033[33mModerate\033[0m: 101-150   \033[31mUnhealthy\033[0m: >150");
@@ -35,32 +36,9 @@ public class BarChartDisplay {
         System.out.println("  " + "─".repeat(80));
     }
 
-    public String colorFor(int value) {
-        if (value > 150) return "\033[31m";      // Red
-        else if (value > 100) return "\033[33m"; // Yellow
-        else return "\033[32m";                  // Green
-    }
-
     public String labelFor(int value) {
         if (value > 150) return "Unhealthy";
         else if (value > 100) return "Moderate";
         else return "Good";
     }
-
-//    public class Visualizer {
-//        public static final String RESET  = "\033[0m";
-//        public static final String RED    = "\033[31m";
-//        public static final String GREEN  = "\033[32m";
-//        public static final String YELLOW = "\033[33m";
-//        public static final String CYAN   = "\033[36m";
-//        public static final String BOLD   = "\033[1m";
-//
-//        public static String moveTo(int row, int col) {
-//            return "\033[" + row + ";" + col + "H";
-//        }
-//
-//        public static void clearScreen() {
-//            System.out.print("\033[2J\033[H");
-//        }
-//    }
 }
