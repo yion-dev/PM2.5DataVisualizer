@@ -6,7 +6,7 @@ import java.util.List;
 
 public class IOService {
 
-    public void writeCsv(String path, String city, List<ApiService.Pm25Data> data) throws IOException {
+    public void writeCsv(String path, String city, List<ApiDataExtractionService.Pm25Data> data) throws IOException {
         FileWriter writer = new FileWriter(path);
 
         //City name
@@ -15,7 +15,7 @@ public class IOService {
         // header
         writer.write("date,avg,min,max\n");
 
-        for (ApiService.Pm25Data d : data) {
+        for (ApiDataExtractionService.Pm25Data d : data) {
             writer.write(d.day + "," + d.avg + "," + d.min + "," + d.max + "\n");
         }
 
