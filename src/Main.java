@@ -1,11 +1,14 @@
 import displays.BarChartDisplay;
 import displays.BarChartVerticalDisplay;
 import displays.MenuDisplay;
+
 import exceptions.ApiException;
 import exceptions.ApiResponseException;
+
 import services.ApiDataExtractionService;
 import services.ApiService;
 import services.IOService;
+import services.IOServiceInterface;
 
 import java.util.List;
 
@@ -77,6 +80,19 @@ void main() {
                     break outer;
 
                 case "4":
+
+                    System.out.println("└" + "─".repeat(80) + "┘");
+
+                    IOServiceInterface.CsvData csvdata = iowriter.readCsv("src/data.csv");
+                    String cityName = csvdata.city;
+
+                    System.out.println("┌" + "─".repeat(80) + "┐");
+                    System.out.println("│   " + cityName + " ".repeat(80 - 3 - cityName.length()) + "│" );
+                    System.out.println("├" + "─".repeat(80) + "┤");
+
+                    chart.displayChart(csvdata.rows);
+                    lineChart.displayChart(csvdata.rows);
+
                     break outer;
 
                 default:
