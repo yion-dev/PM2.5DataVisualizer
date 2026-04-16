@@ -11,3 +11,4 @@ public interface ChartsInterface {
     public void displayChart(List<ApiService.Pm25Data> data);
 
 }
+

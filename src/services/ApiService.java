@@ -23,10 +23,12 @@ public class ApiService implements ApiServiceInterface {
 
         builder = new StringBuilder();
         apiBaseRoute = "https://api.waqi.info";
+        //reminder: remove this hardcoded token
         token = "1af64f336714096d0da632ce95708b3a65bfd5db";
         client = HttpClient.newHttpClient();
     }
 
+    //this fetch api data using the query "here" which means current location
     public String getApiData() throws IOException, InterruptedException {
 
         builder.append(this.apiBaseRoute);
@@ -45,6 +47,7 @@ public class ApiService implements ApiServiceInterface {
         return response.body();
     }
 
+    //this fetch api data using the city name
     public String getApiDataWithCityName(String city) throws IOException, InterruptedException {
 
         builder.append(this.apiBaseRoute);
@@ -65,7 +68,7 @@ public class ApiService implements ApiServiceInterface {
         return response.body();
     }
 
-    @Override
+    //this extract city name from given string using regex
     public String extractCityName(String json) {
         return json.split("\"city\":\\{")[1]
                 .split("}")[0]
@@ -73,7 +76,8 @@ public class ApiService implements ApiServiceInterface {
                 .split("\"")[0];
     }
 
-    @Override
+
+    //this function extract the latitude ana longitude from the api data
     public double[] extractCityGeo(String json) {
         String geoPart = json.split("\"geo\":\\[")[1].split("]")[0];
         String[] parts = geoPart.split(",");
@@ -84,6 +88,9 @@ public class ApiService implements ApiServiceInterface {
         return new double[]{lat, lon};
     }
 
+    //reminder : move this class to different file (bec this class has to be used across the codebase)
+    //this is going to be used across the app
+    //this is the outline of PM25data refer to sample.md for more information
     public static class Pm25Data {
         public int avg;
         public int min;
@@ -91,7 +98,9 @@ public class ApiService implements ApiServiceInterface {
         public String day;
     }
 
-    @Override
+    //this extract the PM25 data from pm25 block of json body
+    //by splitting the string and using regex
+    //and this return the data in a list with the Pm25Data as generics
     public List<Pm25Data> extractPm25Forecast(String json) {
 
         List<Pm25Data> list = new ArrayList<>();

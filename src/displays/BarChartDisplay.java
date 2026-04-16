@@ -24,14 +24,6 @@ public class BarChartDisplay extends ChartDisplay {
             String label = labelFor(avg);
             int barLen = Math.min(avg / 6, 50);
 
-//            System.out.printf("│" + "  %s │ %s%s\033[0m avg:%-3d max:%-3d min:%-3d (%s)\n",
-//                    date,
-//                    color,
-//                    "█".repeat(barLen),
-//                    avg, max, min,
-//                    label
-//            );
-
             String content = String.format(
                     "  %s │ %s%s\033[0m avg:%-3d max:%-3d min:%-3d (%s)",
                     date,

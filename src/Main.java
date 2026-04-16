@@ -27,7 +27,10 @@ void main() {
                 + " ".repeat(80 - 41 ) + "│");
         System.out.print("│" + " ".repeat(4) + " > ");
         userInput = scanner.nextLine();
+
         try {
+
+            //reminder: put the actual functions and add a new case for csv output
             switch (userInput){
                 case "1":
                     json = api.getApiData();
@@ -48,6 +51,7 @@ void main() {
             }
 
         } catch (Exception e) {
+            //reminder: replace these exceptions with actual exceptions
             throw new RuntimeException(e);
         }
 

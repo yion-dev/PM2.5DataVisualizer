@@ -47,8 +47,6 @@ public class MenuDisplay {
         );
 
         System.out.println("└" + "─".repeat(width) + "┘");
-//        System.out.println("├" + "─".repeat(width) + "┤");
-//        System.out.print("│" + " ".repeat(4) + " > " +  " ".repeat(width - 7) + "│");
     }
 
 }
