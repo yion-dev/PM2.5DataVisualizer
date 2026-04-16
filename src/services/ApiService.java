@@ -30,12 +30,11 @@ public class ApiService implements ApiServiceInterface {
     public String getApiData() throws IOException, InterruptedException {
 
         builder.append(this.apiBaseRoute);
-        builder.append("/shanghai/");
+        builder.append("/feed/here/");
         builder.append("?token=");
         builder.append(this.token);
 
         String url = builder.toString();
-
 
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
         HttpResponse<String> response = this.client.send(
@@ -121,8 +120,11 @@ public class ApiService implements ApiServiceInterface {
             list.add(data);
         }
 
+        if(list.size() > 7) {
+            return list.subList(0, 7);
+        }
+
         return list;
+
     }
-
-
 }

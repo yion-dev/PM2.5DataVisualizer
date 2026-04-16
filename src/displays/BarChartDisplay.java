@@ -9,8 +9,8 @@ public class BarChartDisplay extends ChartDisplay {
     @Override
     public void displayChart(List<ApiService.Pm25Data> data) {
 
-        System.out.println("\033[0m  \033[32mGood\033[0m: ≤100   \033[33mModerate\033[0m: 101-150   \033[31mUnhealthy\033[0m: >150");
-        System.out.println("  " + "─".repeat(80));
+        System.out.println("│" + dataLabel +  padRightAnsi(dataLabel, width) + "│");
+        System.out.println("├" + "─".repeat(width) + "┤");
 
         for (ApiService.Pm25Data item : data) {
 
@@ -24,16 +24,30 @@ public class BarChartDisplay extends ChartDisplay {
             String label = labelFor(avg);
             int barLen = Math.min(avg / 6, 50);
 
-            System.out.printf("  %s │ %s%s\033[0m avg:%-3d max:%-3d min:%-3d (%s)\n",
+//            System.out.printf("│" + "  %s │ %s%s\033[0m avg:%-3d max:%-3d min:%-3d (%s)\n",
+//                    date,
+//                    color,
+//                    "█".repeat(barLen),
+//                    avg, max, min,
+//                    label
+//            );
+
+            String content = String.format(
+                    "  %s │ %s%s\033[0m avg:%-3d max:%-3d min:%-3d (%s)",
                     date,
                     color,
                     "█".repeat(barLen),
                     avg, max, min,
                     label
             );
+
+            int visibleLength = stripAnsi(content).length();
+            int padding = Math.max(0, 80 - visibleLength);
+
+            System.out.println("│" + content + " ".repeat(padding) + "│");
         }
 
-        System.out.println("  " + "─".repeat(80));
+        System.out.println("├" + "─".repeat(width) + "┤");
     }
 
     public String labelFor(int value) {
