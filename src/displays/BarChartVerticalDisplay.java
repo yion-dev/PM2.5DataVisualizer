@@ -51,9 +51,9 @@ public class BarChartVerticalDisplay extends ChartDisplay {
         for (ApiService.Pm25Data item : data) {
 
             //this makes the string to show only the month and day
-            System.out.printf(" %-5s ", item.day.substring(5));
+            System.out.printf("  %-5s ", item.day.substring(5));
         }
-        System.out.println(" ".repeat(width - data.size() * 8)  + " │");
+        System.out.println(" ".repeat(width - data.size() * 9)  + " │");
 
         System.out.println("└" + "─".repeat(width) + "┘");
     }

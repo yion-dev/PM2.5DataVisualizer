@@ -2,6 +2,7 @@ import displays.BarChartDisplay;
 import displays.BarChartVerticalDisplay;
 import displays.MenuDisplay;
 import services.ApiService;
+import services.IOService;
 
 import java.awt.*;
 import java.util.List;
@@ -12,6 +13,7 @@ void main() {
     String json = null;
 
     ApiService api = new ApiService();
+    IOService iowriter = new IOService();
     Scanner scanner = new Scanner(System.in);
 
     BarChartDisplay chart = new BarChartDisplay();
@@ -22,9 +24,10 @@ void main() {
 
     System.out.println("┌" + "─".repeat(80) + "┐");
 
+    outer:
     do {
-        System.out.println("│"  + "  [Choose an operation < 1 | 2 | 3 | 0 >]"
-                + " ".repeat(80 - 41 ) + "│");
+        System.out.println("│"  + "  [Choose an operation < 1 | 2 | 3 | 4 | 0 >]"
+                + " ".repeat(80 - 45 ) + "│");
         System.out.print("│" + " ".repeat(4) + " > ");
         userInput = scanner.nextLine();
 
@@ -34,8 +37,7 @@ void main() {
             switch (userInput){
                 case "1":
                     json = api.getApiData();
-                    userInput = "0";
-                    break;
+                    break outer;
 
                 case "2":
                     System.out.println("│"  + "  [Enter city name]"
@@ -43,8 +45,37 @@ void main() {
                     System.out.print("│" + " ".repeat(4) + " > ");
                     String city = scanner.nextLine();
                     json = api.getApiDataWithCityName(city);
-                    userInput = "0";
-                    break;
+                    break outer;
+
+                case "3":
+
+                    menu.displayMenuCSV();
+                    menu.displayUserInput();
+                    String userChoiceCsv = scanner.nextLine();
+
+                    if(userChoiceCsv.equals("1")){
+                        json = api.getApiData();
+
+                    } else if(userChoiceCsv.equals("2")) {
+
+                        System.out.println("│"  + "  [Enter city name]"
+                                + " ".repeat(80 - 19 ) + "│");
+                        System.out.print("│" + " ".repeat(4) + " > ");
+                        String userCityCsv = scanner.nextLine();
+
+                        json = api.getApiDataWithCityName(userCityCsv);
+                    }
+
+                    assert json != null;
+                    String cityNameForIo = api.extractCityName(json);
+                    List<ApiService.Pm25Data> forecast = api.extractPm25Forecast(json);
+
+                    iowriter.writeCsv("src/data.csv", cityNameForIo, forecast);
+
+                    break outer;
+
+                case "4":
+                    break outer;
 
                 default:
                     break;
@@ -60,6 +91,9 @@ void main() {
     System.out.println("└" + "─".repeat(80) + "┘");
 
     try {
+
+        if (userInput.equals("3") || userInput.equals("4")){ return; }
+
         assert json != null;
 
         String cityName = api.extractCityName(json);

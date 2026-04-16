@@ -37,8 +37,13 @@ public class MenuDisplay {
         );
         System.out.println(
                 "│" + " ".repeat(4) +
-                        "(3) Read Data from CSV" +
-                        " ".repeat(width - "(3) Read Data from CSV".length() - 4) + "│"
+                        "(3) Write Data to CSV" +
+                        " ".repeat(width - "(3) Write Data to CSV".length() - 4) + "│"
+        );
+        System.out.println(
+                "│" + " ".repeat(4) +
+                        "(4) Read Data from CSV" +
+                        " ".repeat(width - "(4) Read Data from CSV".length() - 4) + "│"
         );
         System.out.println(
                 "│" + " ".repeat(4) +
@@ -49,4 +54,21 @@ public class MenuDisplay {
         System.out.println("└" + "─".repeat(width) + "┘");
     }
 
+    public void displayMenuCSV() {
+        System.out.println("├" + "─".repeat(width) + "┤");
+        System.out.println(
+                "│" + " ".repeat(4) +
+                        "(1) Current Location" +
+                        " ".repeat(width - "(1) Current Location".length() - 4) + "│"
+        );
+        System.out.println(
+                "│" + " ".repeat(4) +
+                        "(2) Search City" +
+                        " ".repeat(width - "(2) Search City".length() - 4) + "│"
+        );
+    }
+
+    public void displayUserInput() {
+        System.out.print("│" + " ".repeat(4) + " > ");
+    }
 }
