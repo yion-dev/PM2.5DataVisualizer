@@ -1,11 +1,10 @@
 import displays.BarChartDisplay;
 import displays.BarChartVerticalDisplay;
 import displays.MenuDisplay;
+import java.util.List;
+import java.util.Scanner;
 import services.ApiService;
 import services.IOService;
-
-import java.awt.*;
-import java.util.List;
 
 void main() {
 
@@ -75,7 +74,23 @@ void main() {
                     break outer;
 
                 case "4":
-                    break outer;
+                    System.out.println("│"  + "  [Enter CSV path or press Enter to use src/data.csv]"
+                            + " ".repeat(80 - 45 ) + "│");
+                    System.out.print("│" + " ".repeat(4) + " > ");
+                    String csvPath = scanner.nextLine().trim();
+                    if (csvPath.isBlank()) {
+                        csvPath = "src/data.csv";
+                    }
+
+                    IOService.CsvData csvData = iowriter.readCsv(csvPath);
+                    System.out.println();
+                    System.out.println("┌" + "─".repeat(80) + "┐");
+                    System.out.println("│   " + csvData.city + " ".repeat(80 - 3 - csvData.city.length()) + "│" );
+                    System.out.println("├" + "─".repeat(80) + "┤");
+
+                    chart.displayChart(csvData.rows);
+                    lineChart.displayChart(csvData.rows);
+                    return;
 
                 default:
                     break;
