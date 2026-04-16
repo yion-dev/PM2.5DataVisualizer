@@ -1,18 +1,18 @@
 package displays;
 
-import services.ApiService;
+import services.ApiDataExtractionService;
 
 import java.util.List;
 
 public class BarChartDisplay extends ChartDisplay {
 
     @Override
-    public void displayChart(List<ApiService.Pm25Data> data) {
+    public void displayChart(List<ApiDataExtractionService.Pm25Data> data) {
 
         System.out.println("│" + dataLabel +  padRightAnsi(dataLabel, width) + "│");
         System.out.println("├" + "─".repeat(width) + "┤");
 
-        for (ApiService.Pm25Data item : data) {
+        for (ApiDataExtractionService.Pm25Data item : data) {
 
             String date = item.day;
 
