@@ -5,6 +5,7 @@ import java.io.IOException;
 
 public interface ApiServiceInterface {
 
+    //reminder: add more function interface to align with the service code
     String getApiData() throws IOException, InterruptedException;
 
     String extractCityName(String json);
