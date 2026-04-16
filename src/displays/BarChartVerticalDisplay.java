@@ -1,6 +1,6 @@
 package displays;
 
-import services.ApiService;
+import services.ApiDataExtractionService;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public class BarChartVerticalDisplay extends ChartDisplay {
     private static final int CHART_HEIGHT = 12;
 
     @Override
-    public void displayChart(List<ApiService.Pm25Data> data) {
+    public void displayChart(List<ApiDataExtractionService.Pm25Data> data) {
 
         System.out.println("│" + "\033[36m\033[1m  PM2.5 Line Chart (avg)\033[0m"
                 + padRightAnsi("\033[36m\033[1m  PM2.5 Line Chart (avg)\033[0m", width) + "│");
@@ -28,7 +28,7 @@ public class BarChartVerticalDisplay extends ChartDisplay {
             int threshold = Math.round((float) row / CHART_HEIGHT * max);
             System.out.printf("│ %3d │", threshold);
 
-            for (ApiService.Pm25Data item : data) {
+            for (ApiDataExtractionService.Pm25Data item : data) {
 
                 String color = colorFor(item.avg);
 
@@ -48,7 +48,7 @@ public class BarChartVerticalDisplay extends ChartDisplay {
 
         // Date labels
         System.out.print("│      ");
-        for (ApiService.Pm25Data item : data) {
+        for (ApiDataExtractionService.Pm25Data item : data) {
 
             //this makes the string to show only the month and day
             System.out.printf("  %-5s ", item.day.substring(5));

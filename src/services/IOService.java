@@ -11,7 +11,7 @@ import java.util.List;
 public class IOService implements IOServiceInterface {
 
     @Override
-    public void writeCsv(String path, String city, List<ApiService.Pm25Data> data) throws IOException {
+    public void writeCsv(String path, String city, List<ApiDataExtractionService.Pm25Data> data) throws IOException {
         if (path == null || path.isBlank()) {
             throw new IllegalArgumentException("CSV path cannot be null or blank");
         }
@@ -29,7 +29,7 @@ public class IOService implements IOServiceInterface {
             writer.write(System.lineSeparator());
 
             if (data != null) {
-                for (ApiService.Pm25Data row : data) {
+                for (ApiDataExtractionService.Pm25Data row : data) {
                     writer.write(formatRow(row));
                 }
             }
@@ -58,7 +58,7 @@ public class IOService implements IOServiceInterface {
                 throw new IOException("CSV file header is missing or invalid: " + path);
             }
 
-            List<ApiService.Pm25Data> rows = new ArrayList<>();
+            List<ApiDataExtractionService.Pm25Data> rows = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.isBlank()) {
@@ -69,7 +69,7 @@ public class IOService implements IOServiceInterface {
                     continue;
                 }
 
-                ApiService.Pm25Data row = new ApiService.Pm25Data();
+                ApiDataExtractionService.Pm25Data row = new ApiDataExtractionService.Pm25Data();
                 row.day = values.get(0);
                 row.avg = parseInt(values.get(1));
                 row.min = parseInt(values.get(2));
@@ -118,7 +118,7 @@ public class IOService implements IOServiceInterface {
         return values;
     }
 
-    private String formatRow(ApiService.Pm25Data row) {
+    private String formatRow(ApiDataExtractionService.Pm25Data row) {
         if (row == null) {
             return "";
         }
