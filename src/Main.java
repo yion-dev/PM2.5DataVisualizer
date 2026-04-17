@@ -29,24 +29,23 @@ void main() {
 
     System.out.println("┌" + "─".repeat(80) + "┐");
 
-    outer:
-    do {
-        System.out.println("│"  + "  [Choose an operation < 1 | 2 | 3 | 4 | 0 >]"
-                + " ".repeat(80 - 45 ) + "│");
+    outer: do {
+        System.out.println("│" + "  [Choose an operation < 1 | 2 | 3 | 4 | 0 >]"
+                + " ".repeat(80 - 45) + "│");
         System.out.print("│" + " ".repeat(4) + " > ");
         userInput = scanner.nextLine();
 
         try {
 
-            //reminder: put the actual functions and add a new case for csv output
-            switch (userInput){
+            // reminder: put the actual functions and add a new case for csv output
+            switch (userInput) {
                 case "1":
                     json = api.getApiData();
                     break outer;
 
                 case "2":
-                    System.out.println("│"  + "  [Enter city name]"
-                            + " ".repeat(80 - 19 ) + "│");
+                    System.out.println("│" + "  [Enter city name]"
+                            + " ".repeat(80 - 19) + "│");
                     System.out.print("│" + " ".repeat(4) + " > ");
                     String city = scanner.nextLine();
                     json = api.getApiData(city);
@@ -58,13 +57,13 @@ void main() {
                     menu.displayUserInput();
                     String userChoiceCsv = scanner.nextLine();
 
-                    if(userChoiceCsv.equals("1")){
+                    if (userChoiceCsv.equals("1")) {
                         json = api.getApiData();
 
-                    } else if(userChoiceCsv.equals("2")) {
+                    } else if (userChoiceCsv.equals("2")) {
 
-                        System.out.println("│"  + "  [Enter city name]"
-                                + " ".repeat(80 - 19 ) + "│");
+                        System.out.println("│" + "  [Enter city name]"
+                                + " ".repeat(80 - 19) + "│");
                         System.out.print("│" + " ".repeat(4) + " > ");
                         String userCityCsv = scanner.nextLine();
 
@@ -76,7 +75,8 @@ void main() {
                     List<ApiDataExtractionService.Pm25Data> forecast = ApiDataExtractionService.extractPm25Forecast(json);
 
                     iowriter.writeCsv("src/data.csv", cityNameForIo, forecast);
-
+                    System.out.println("│" + "  [Data has been saved to our system]"
+                            + " ".repeat(80 - 39) + "│");
                     break outer;
 
                 case "4":
@@ -113,7 +113,9 @@ void main() {
 
     try {
 
-        if (userInput.equals("3") || userInput.equals("4")){ return; }
+        if (userInput.equals("3") || userInput.equals("4")) {
+            return;
+        }
 
         assert json != null;
 
@@ -122,7 +124,7 @@ void main() {
 
         System.out.println();
         System.out.println("┌" + "─".repeat(80) + "┐");
-        System.out.println("│   " + cityName + " ".repeat(80 - 3 - cityName.length()) + "│" );
+        System.out.println("│   " + cityName + " ".repeat(80 - 3 - cityName.length()) + "│");
         System.out.println("├" + "─".repeat(80) + "┤");
 
         chart.displayChart(jsonBodyPM25);
