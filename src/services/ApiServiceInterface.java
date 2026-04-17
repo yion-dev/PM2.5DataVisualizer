@@ -1,15 +1,13 @@
 package services;
 
+import exceptions.ApiException;
+
 import java.util.List;
-import java.io.IOException;
 
 public interface ApiServiceInterface {
 
     //reminder: add more function interface to align with the service code
-    String getApiData() throws IOException, InterruptedException;
+    String getApiData() throws ApiException;
+    String getApiData(String city) throws  ApiException;
 
-    String extractCityName(String json);
-    double[] extractCityGeo(String json);
-
-    List<ApiService.Pm25Data> extractPm25Forecast(String json);
 }

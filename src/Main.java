@@ -1,10 +1,15 @@
 import displays.BarChartDisplay;
 import displays.BarChartVerticalDisplay;
 import displays.MenuDisplay;
+
+import exceptions.ApiException;
+import exceptions.ApiResponseException;
+
+import services.ApiDataExtractionService;
 import services.ApiService;
 import services.IOService;
+import services.IOServiceInterface;
 
-import java.awt.*;
 import java.util.List;
 
 void main() {
@@ -43,7 +48,7 @@ void main() {
                             + " ".repeat(80 - 19) + "│");
                     System.out.print("│" + " ".repeat(4) + " > ");
                     String city = scanner.nextLine();
-                    json = api.getApiDataWithCityName(city);
+                    json = api.getApiData(city);
                     break outer;
 
                 case "3":
@@ -62,12 +67,12 @@ void main() {
                         System.out.print("│" + " ".repeat(4) + " > ");
                         String userCityCsv = scanner.nextLine();
 
-                        json = api.getApiDataWithCityName(userCityCsv);
+                        json = api.getApiData(userCityCsv);
                     }
 
                     assert json != null;
-                    String cityNameForIo = api.extractCityName(json);
-                    List<ApiService.Pm25Data> forecast = api.extractPm25Forecast(json);
+                    String cityNameForIo = ApiDataExtractionService.extractCityName(json);
+                    List<ApiDataExtractionService.Pm25Data> forecast = ApiDataExtractionService.extractPm25Forecast(json);
 
                     iowriter.writeCsv("src/data.csv", cityNameForIo, forecast);
                     System.out.println("│" + "  [Data has been saved to our system]"
@@ -75,15 +80,31 @@ void main() {
                     break outer;
 
                 case "4":
+
+                    System.out.println("└" + "─".repeat(80) + "┘");
+
+                    IOServiceInterface.CsvData csvdata = iowriter.readCsv("src/data.csv");
+                    String cityName = csvdata.city;
+
+                    System.out.println("┌" + "─".repeat(80) + "┐");
+                    System.out.println("│   " + cityName + " ".repeat(80 - 3 - cityName.length()) + "│" );
+                    System.out.println("├" + "─".repeat(80) + "┤");
+
+                    chart.displayChart(csvdata.rows);
+                    lineChart.displayChart(csvdata.rows);
+
                     break outer;
 
                 default:
                     break;
             }
 
-        } catch (Exception e) {
-            // reminder: replace these exceptions with actual exceptions
-            throw new RuntimeException(e);
+        } catch (ApiResponseException e) {
+            System.out.println("API Response Error: " + e);
+        } catch (ApiException e) {
+            System.out.println("API Error: " + e);
+        } catch (IOException e) {
+            System.out.println("IO Error: " + e);
         }
 
     } while (!userInput.equals("0"));
@@ -98,8 +119,8 @@ void main() {
 
         assert json != null;
 
-        String cityName = api.extractCityName(json);
-        List<ApiService.Pm25Data> jsonBodyPM25 = api.extractPm25Forecast(json);
+        String cityName = ApiDataExtractionService.extractCityName(json);
+        List<ApiDataExtractionService.Pm25Data> jsonBodyPM25 = ApiDataExtractionService.extractPm25Forecast(json);
 
         System.out.println();
         System.out.println("┌" + "─".repeat(80) + "┐");

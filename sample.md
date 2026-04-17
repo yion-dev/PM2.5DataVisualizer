@@ -6,7 +6,7 @@
  - /feed/geo::lat;:lng/?token=:token
  - /search/?keyword=:keyword&token=:token
  - for info https://aqicn.org/json-api/doc/
-
+ 
 ```json
 {
   "status": "ok",
