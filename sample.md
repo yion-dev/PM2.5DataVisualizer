@@ -1,12 +1,14 @@
+# Sample Data
 
-# Sample Data 
 ### from https://api.waqi.info
+
 #### Query Information
- - /feed/:city/?token=:token 
- - /feed/geo::lat;:lng/?token=:token
- - /search/?keyword=:keyword&token=:token
- - for info https://aqicn.org/json-api/doc/
- 
+
+- /feed/:city/?token=:token
+- /feed/geo::lat;:lng/?token=:token
+- /search/?keyword=:keyword&token=:token
+- for info https://aqicn.org/json-api/doc/
+
 ```json
 {
   "status": "ok",
@@ -55,9 +57,7 @@
     },
     "forecast": {
       "daily": {
-        "o3": [
-          { "avg": 6, "day": "2025-04-05", "max": 10, "min": 3 }
-        ],
+        "o3": [{ "avg": 6, "day": "2025-04-05", "max": 10, "min": 3 }],
         "pm10": [
           { "avg": 55, "day": "2026-04-14", "max": 58, "min": 52 },
           { "avg": 47, "day": "2026-04-15", "max": 52, "min": 46 },
@@ -93,8 +93,7 @@
     }
   },
   "debug": {
-    "sync": "2026-04-16T18:13:57+09:00" 
+    "sync": "2026-04-16T18:13:57+09:00"
   }
 }
 ```
-
